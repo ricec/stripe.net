@@ -44,7 +44,7 @@ namespace Stripe
 			return Mapper<StripeCharge>.MapFromJson(response);
 		}
 
-		public virtual IEnumerable<StripeCharge> List(int count = 10, int offset = 0, string customerId = null)
+		public virtual IEnumerable<StripeCharge> List(int count = 10, int offset = 0, string customerId = null, StripeDateRange created = null)
 		{
 			var url = Urls.Charges;
 			url = ParameterBuilder.ApplyParameterToUrl(url, "count", count.ToString());
@@ -52,6 +52,9 @@ namespace Stripe
 
 			if (!string.IsNullOrEmpty(customerId))
 				url = ParameterBuilder.ApplyParameterToUrl(url, "customer", customerId);
+
+            if (created != null)
+                url = created.ApplyQueryStringParams(url, "created");
 
 			var response = Requestor.GetString(url, ApiKey);
 

@@ -17,6 +17,9 @@ namespace Stripe
 		[JsonProperty("amount")]
 		public int? AmountInCents { get; set; }
 
+        [JsonProperty("fee")]
+        public int? FeeInCents { get; set; }
+
 		[JsonProperty("status")]
 		public string Status { get; set; }
 
@@ -28,5 +31,8 @@ namespace Stripe
 
 		[JsonProperty("summary")]
 		public StripeTransferSummary Summary { get; set; }
+
+        [JsonProperty("transactions")]
+        public StripeList<StripeCharge> Transactions { get; set; }
 	}
 }
