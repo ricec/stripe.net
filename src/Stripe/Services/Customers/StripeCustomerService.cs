@@ -14,7 +14,7 @@ namespace Stripe
 
 		public virtual StripeCustomer Create(StripeCustomerCreateOptions createOptions)
 		{
-			var url = ParameterBuilder.ApplyAllParameters(createOptions, Urls.Customers);
+			var url = ParameterBuilder.ApplyAllParameters(createOptions, Urls.Customers + "?expand[]=default_card");
 
 			var response = Requestor.PostString(url, ApiKey);
 
@@ -23,7 +23,7 @@ namespace Stripe
 
 		public virtual StripeCustomer Get(string customerId)
 		{
-			var url = string.Format("{0}/{1}", Urls.Customers, customerId);
+			var url = string.Format("{0}/{1}?expand[]=default_card", Urls.Customers, customerId);
 
 			var response = Requestor.GetString(url, ApiKey);
 
@@ -32,7 +32,7 @@ namespace Stripe
 
 		public virtual StripeCustomer Update(string customerId, StripeCustomerUpdateOptions updateOptions)
 		{
-			var url = string.Format("{0}/{1}", Urls.Customers, customerId);
+            var url = string.Format("{0}/{1}?expand[]=default_card", Urls.Customers, customerId);
 			url = ParameterBuilder.ApplyAllParameters(updateOptions, url);
 
 			var response = Requestor.PostString(url, ApiKey);
